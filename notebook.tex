@@ -1,0 +1,1997 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{COURSEWORK}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Coursework}\label{coursework}
+
+    Candidate number: 22817
+
+Date submitted: 19/12/2019
+
+    \subsubsection{Abstract}\label{abstract}
+
+    Two exoplanets were identified to be orbiting around a Kepler star
+system using the 'primary transit' detection method. This method
+involves observing dips in the emitted flux by the star caused by an
+exoplanet moving in front of the star. The paper demonstrated multiple
+data reduction techniques and how they can be used in a varied of
+situations. Aperture photometry was explored as a concept of measuring a
+star's flux and magnitude. The GROND dataset was reduced using bias
+frame subtraction and flat fielding. Using a standard star of known
+absolute magnitude +19.50 the absolute magnitude of a star in the image
+was determined to be +17.33 +/- 0.62.
+
+Normalised lightcurves were created from the Kepler data by applying a
+median filter. From a periodogram two exoplanets of period 19.237
+(Planet 1) and 38.98 (Planet 2) days were discovered. Their radii
+(Jupiter radii), semi major axis and densities (Jupiter densities) were
+also calculated. For Planet 1 these were 0.738 +/-0.123, 0.141 AU and
+0.340 +/-0.170 respectively. For Planet 2 these were 0.674 +/-0.135,
+0.226 Au and 0.741 +/- 0.371.
+
+The properties of the two exoplanets suggest that both exoplanets are
+low density gas giants that have formed close to their host star. It was
+concluded that the extrasolar system was unlike our own, with no
+possibility of hosting in a form that we know. Spectroscopy was
+suggested as was to follow up investigations to gain an understanding
+into the exoplanet's atmospheres allowing us to determine the mass
+compositions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}Necessary imports}
+        \PY{k+kn}{from} \PY{n+nn}{astropy}\PY{n+nn}{.}\PY{n+nn}{io} \PY{k}{import} \PY{n}{fits} \PY{c+c1}{\PYZsh{}used to open fits files in which data are stored}
+        \PY{k+kn}{import} \PY{n+nn}{pylab} \PY{c+c1}{\PYZsh{}plotting}
+        \PY{k+kn}{import} \PY{n+nn}{glob}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{photutils}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{signal}
+        
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{signal} \PY{k}{import} \PY{n}{savgol\PYZus{}filter}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{interpolate}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{optimize} \PY{k}{import} \PY{n}{curve\PYZus{}fit}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{signal} \PY{k}{import} \PY{n}{medfilt}
+        \PY{k+kn}{from} \PY{n+nn}{photutils} \PY{k}{import} \PY{n}{aperture\PYZus{}photometry}
+        \PY{k+kn}{from} \PY{n+nn}{imgdatareduction} \PY{k}{import} \PY{n}{ImageData}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{colors} \PY{k}{import} \PY{n}{LogNorm}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{signal} \PY{k}{import} \PY{n}{lombscargle}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot}
+        
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{optimize}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{interpolate} \PY{k}{import} \PY{n}{interpn}
+        \PY{k+kn}{from} \PY{n+nn}{CompSample} \PY{k}{import} \PY{n}{read\PYZus{}exopars}\PY{p}{,} \PY{n}{linfit}\PY{p}{,} \PY{n}{Zrecal}\PY{p}{,} \PY{n}{conflevels}\PY{p}{,} \PY{n}{density\PYZus{}scatter}
+        
+        \PY{n}{mykepler} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{}Data source number for object 1 is \PYZsq{}1\PYZsq{}}
+\end{Verbatim}
+
+
+    \subsubsection{1. Introduction}\label{introduction}
+
+An exoplanet is any planetary body that exists outside of the Solar
+System. Most exoplanets are detected in orbit around a host star or
+stars. However, exoplanets can exist outside of extrasolar systems, but
+detection of these exoplanets is difficult with current methods and
+technology {[}1{]}. Exoplanets are difficult to directly image using
+current telescopes because the luminosity of the host star is much
+greater than that of the planet. Instead indirect methods of observing
+the effects of the exoplanet on the star are used to confirm the
+presence of an exoplanet. The `primary transit' and the `radial
+velocity' are the most common methods of detecting exoplanets orbiting
+around a host star. The purpose of this paper is to explore how the
+primary transit method is used to detect an exoplanet. Using this method
+one can determine the period and size of the exoplanet orbiting the star
+{[}2{]}. When an exoplanet passes in front of a host star, the planet
+blocks a small percentage of the light emitted from the star. This
+change in flux can be detected if the planet's transit is in the plane
+of observation. Knowing the baseline luminosity of the star from the
+Kepler lightcurve one can calculate the change in flux, this is called
+the transit depth. The transit depth is equal to the ratio areas of the
+exoplanet and star {[}3{]}. Therefore, the radius of the exoplanet
+cannot be measured from just the transit across the star. One must also
+measure the radius of the star in order to calculate the exoplanet's
+radius {[}3{]}. Rearranging equation 3, one can derive the exoplanets
+semi major axis.
+
+\(\text{Transit Depth} = (R_{exoplanet}/R_{star})^{2}\) (1)
+
+\$ R\_\{exoplanet\} = R\_\{star\}*\sqrt{\text{Transit Depth}}\$ (2)
+
+\$a\^{}\{3\} = \frac{G(M_{star}+M_{planet})}{4\pi ^{2}} P\^{}\{2\} (3)
+
+In this paper one will demonstrate how to model a Kepler lightcurve and
+calculate the transit depth, period, radius semi major axis and density
+of an exoplanet using data taken from the Kepler space telescope. The
+exoplanet and extrasolar system will be evaluated as to whether it could
+sustain life in a form as we know it. Data reduction methods will be
+implemented to create clear and comprehensible filtered data in order to
+achieve the goals. Photometry is a common method of data reduction in
+astrophysics. This involves calculating the signal to noise ratio for a
+given image or data set {[}4{]}.
+
+\(\text{SNR} = \text{Desired Signal}⁄Noise\) (4){[}4{]}.
+
+In astronomy noise can stem from all manner of things. These range from
+random fluctuations from the background sky to the in inherent noise in
+the CCD chip and electronics {[}4{]}. These data reduction methods will
+also be applied to a star in order to calculate its flux and magnitude.
+
+    \subsubsection{2.1 Data Reduction - GROND}\label{data-reduction---grond}
+
+Below are the steps that were taken to clean the GROND dataset. The
+program stars by opening an image file. The image shows that the data
+was taken over two separate CCD plates. Before any data reduction can be
+done the two individual chip images need to be combined into one. In
+order to do this the images were cropped to remove the borders between
+and around the images. The combined CCD plate image shows that each chip
+has a different bias level. A histogram of the subtraction bias for each
+chip was created. It shows the average count per pixel. As expected, a
+gaussian distribution of counts per pixel is recorded over each chip.
+Correction for the bias was implemented by subtracting a bias frame
+taken in the same filter as the raw image from the combined image. Now
+that two images have the same bias, one can begin to reduce the
+background noise in the image. One way of doing this is creating a flat
+field image. The aim of this technique is to remove any variations in
+pixel-to-pixel sensitivity or random noise from the image background. A
+flat field image mask was applied to the GROND image data. After
+subtracting the bias and the flat field image, one can begin to
+calculate the flux and magnitude of a star in the image.
+
+A function was written to calculate the flux and magnitude of a star in
+the image. It used imported function from the photutils python library.
+The first imported function is `CircularAperture', this function has the
+purpose of plotting a circle of radius, r, centred at positions x and y,
+where r, x, and y are all user defined variables. The second imported
+function, `aperture\_photometry', is fed the user defined
+`CircularAperture' and applies it to the cleaned data image. The outputs
+of `aperture\_photometry' are the ID, the coordinate centre of the
+aperture and the sum of the counts per pixel over the entire area, i.e.
+flux.
+
+Three areas and positions were defined, the first for the star being
+measured, the second for a standard star of known magnitude and the
+third for a measurement of the background flux. The first and second
+fluxes given by the program are not the actual fluxes of the stars,
+rather they are the flux emitted by the star plus the background noise
+in the image. The program removed the background flux from each flux
+measurement by taking the third circular aperture flux measurement and
+dividing it by the circular aperture area. This gives average background
+count per pixel (noise). The noise is then multiplied by the circular
+aperture area for each star respectively. Finally, the program subtracts
+the respective total noise per area from the unadjusted flux
+measurements. The result is the emitted flux by each star. The program
+then plots each respective circular aperture over the reduced data
+image. This gives a visual representation of where each circle is
+centred. The white circle is the aperture of the star being measured,
+the blue circle is the standard star aperture and the red circle is the
+background noise aperture.
+
+Uncertainty was calculated on the flux measurements of each star and the
+background noise. Using the standard error of the mean and the Poisson
+noise.
+
+\$ \sigma\_\{\text{aperture photometry}\} =
+\sqrt{\sigma_{\text{source}}^{2} + \sigma_{\text{sky aperture}}^{2} + n_{\text{pixels}}*\text{(sky level error)}^{2} + n_{\text{pixels}}*\text{RON}^{2}}\$
+(5)
+
+\$ standard~error~of~the~mean~=~\frac{\sigma_{source}}{\sqrt N} \$ (6)
+
+Using the uncertainty equations (5) and (6) the uncertainty in the flux
+of each star was calculated by the program. The program then prints the
+final background noise adjusted flux values for each star with their
+uncertainties.
+
+In order to find the magnitude of the star being measured, one needs to
+know the Zero Point, this is the magnitude of an object with 1 count per
+second on the CCD chip. There is a standard star in the image with a
+known magnitude of +19.5. Using this and the standards stars flux
+calculated earlier in the program, equation 7 was rearranged to find the
+Zero Point. Now that the program has a value for the Zero Point it can
+also calculate the magnitude of the star being measured. The stars
+magnitude is calculated by the program and then printed along with a
+value for the uncertainty. The uncertainty was derived from the
+uncertainties calculated for the fluxes.
+
+\$ Magnitude~=~Zero~Point~-~2.5\times\log\_\{10\}\{(Flux)\} \$ (7)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}Opening the raw image fits data file}
+        \PY{n}{raw} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GROND\PYZus{}rband.246\PYZus{}0006.fits}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{image} \PY{o}{=} \PY{n}{ImageData}\PY{p}{(}\PY{n}{filen}\PY{o}{=}\PY{n}{raw}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}Plotting the fits file}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{raw}\PY{p}{,}\PY{n}{vmin}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,}\PY{n}{vmax}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,}\PY{n}{norm}\PY{o}{=}\PY{n}{LogNorm}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}colour shows visually how many counts per pixel (ie the flux)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Raw Data Image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} Text(0.5,1,'Raw Data Image')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}Cropping the image to remove borders}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{rawtrim}\PY{p}{,}\PY{n}{vmin}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,}\PY{n}{vmax}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,}\PY{n}{norm}\PY{o}{=}\PY{n}{LogNorm}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Combined CCD image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} Text(0.5,1,'Combined CCD image')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}Read in bias frame}
+        \PY{n}{bias} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bias\PYZus{}r.fits}\PY{l+s+s1}{\PYZsq{}} 
+        \PY{n}{image}\PY{o}{.}\PY{n}{readbias}\PY{p}{(}\PY{n}{bias}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Let\PYZsq{}s plot the bias frame to see what it looks like}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{bias}\PY{p}{,}\PY{n}{vmin}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{,}\PY{n}{vmax}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Image Bias}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} Text(0.5,1,'Image Bias')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}Chip 1, low\PYZhy{}level pixel to pixel level variation}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{bias}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1023}\PY{p}{]}\PY{p}{,}\PY{n}{vmin}\PY{o}{=}\PY{l+m+mi}{290}\PY{p}{,}\PY{n}{vmax}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chip 1 pixel\PYZhy{}pixel variation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} Text(0.5,1,'Chip 1 pixel-pixel variation')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Plotting a histogram of the counts/pix along row 1000 for chip 1}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{bias}\PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{:}\PY{l+m+mi}{1001}\PY{p}{,}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1023}\PY{p}{]}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{image}\PY{o}{.}\PY{n}{chip1\PYZus{}bl}\PY{p}{,}\PY{n}{image}\PY{o}{.}\PY{n}{chip1\PYZus{}bl}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{255}\PY{p}{]}\PY{p}{,}\PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{255}\PY{p}{]}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chip 1, row 1000 of the bias frame}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Counts/pix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of pixels}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} Text(0,0.5,'Number of pixels')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} First let\PYZsq{}s plot a histogram of the counts/pix along row 1000 for chip 2}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{bias}\PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{:}\PY{l+m+mi}{1001}\PY{p}{,}\PY{l+m+mi}{1200}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{image}\PY{o}{.}\PY{n}{chip2\PYZus{}bl}\PY{p}{,}\PY{n}{image}\PY{o}{.}\PY{n}{chip2\PYZus{}bl}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{300}\PY{p}{]}\PY{p}{,}\PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{255}\PY{p}{]}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chip 2, row 2000 of the bias frame}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Counts/pix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of pixels}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} Text(0,0.5,'Number of pixels')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}Subtracting of image bias from the raw data image}
+        \PY{n}{image}\PY{o}{.}\PY{n}{bias\PYZus{}subtract}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Showing new bias subtraction image}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{biassub}\PY{p}{,}\PY{n}{vmin}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,}\PY{n}{vmax}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{,}\PY{n}{norm}\PY{o}{=}\PY{n}{LogNorm}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Raw Image with Subtracted Bias}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} Text(0.5,1,'Raw Image with Subtracted Bias')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}Data reduction}
+        \PY{n}{flat} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flat\PYZus{}r.fits}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{image}\PY{o}{.}\PY{n}{readflat}\PY{p}{(}\PY{n}{flat}\PY{p}{)} \PY{c+c1}{\PYZsh{}readsremoves artifacting from pixel to pixel sensitivity variations}
+        \PY{c+c1}{\PYZsh{}Showing the flat\PYZhy{}field frame}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{flat}\PY{p}{,}\PY{n}{vmin}\PY{o}{=}\PY{l+m+mi}{49000}\PY{p}{,}\PY{n}{vmax}\PY{o}{=}\PY{l+m+mi}{50500}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flat Field Image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} Text(0.5,1,'Flat Field Image')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Normalisation of the flat field frame such that the counts = 1}
+         \PY{n}{image}\PY{o}{.}\PY{n}{flat} \PY{o}{=} \PY{n}{image}\PY{o}{.}\PY{n}{flat}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{flat}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Normalised flat field frame}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{flat}\PY{p}{,}\PY{n}{vmin}\PY{o}{=}\PY{l+m+mf}{0.99}\PY{p}{,}\PY{n}{vmax}\PY{o}{=}\PY{l+m+mf}{1.02}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Normalised Flat Field Image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} Text(0.5,1,'Normalised Flat Field Image')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Let\PYZsq{}s now flat\PYZhy{}field our data image}
+         \PY{n}{image}\PY{o}{.}\PY{n}{flatfield}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Final reduced data is bias\PYZhy{}subtracted and flat\PYZhy{}fielded }
+         \PY{c+c1}{\PYZsh{} Showing reduced data fits image}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{red}\PY{p}{,}\PY{n}{vmin}\PY{o}{=}\PY{l+m+mi}{250}\PY{p}{,}\PY{n}{vmax}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,}\PY{n}{norm}\PY{o}{=}\PY{n}{LogNorm}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cleaned Data Image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}Saving reduced image as a .fits file}
+         \PY{n}{image}\PY{o}{.}\PY{n}{savefits}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{red}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{my\PYZus{}reddata}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{2.2 GROND dataset - Star flux and magnitude
+caluclations}\label{grond-dataset---star-flux-and-magnitude-caluclations}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{star\PYZus{}photometry}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             
+             
+         
+             \PY{c+c1}{\PYZsh{}CALCULATING FLUX AND MAGNITUDE OF A STAR FROM GROND}
+         
+             \PY{c+c1}{\PYZsh{}Defining the star area and finding its flux}
+             \PY{n}{xpos} \PY{o}{=} \PY{l+m+mi}{1533} \PY{c+c1}{\PYZsh{}x\PYZhy{}position of object in image being measured}
+             \PY{n}{ypos} \PY{o}{=} \PY{l+m+mi}{424}  \PY{c+c1}{\PYZsh{}y\PYZhy{}position of object in image being measured}
+             \PY{n}{srcrad} \PY{o}{=} \PY{l+m+mi}{20} \PY{c+c1}{\PYZsh{}radius over which to measure the object\PYZsq{}s flux}
+             \PY{n}{starsky} \PY{o}{=} \PY{n}{photutils}\PY{o}{.}\PY{n}{CircularAperture}\PY{p}{(}\PY{p}{(}\PY{n}{xpos}\PY{p}{,} \PY{n}{ypos}\PY{p}{)}\PY{p}{,} \PY{n}{srcrad}\PY{p}{)} \PY{c+c1}{\PYZsh{}plots circular aperture over image}
+             \PY{n}{star\PYZus{}circle} \PY{o}{=} \PY{n}{aperture\PYZus{}photometry}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{red}\PY{p}{,} \PY{n}{starsky}\PY{p}{)} \PY{c+c1}{\PYZsh{}calculates the flux in a given area for a fits file}
+             \PY{n}{starflux} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{star\PYZus{}circle}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aperture\PYZus{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{}converts the flux output to a float value for easy printing}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The area over which the stars flux is measured is: }\PY{l+s+s1}{\PYZsq{}} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:.0f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{starsky}\PY{o}{.}\PY{n}{area}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The total star flux (not ajusted for background noise) is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:.0f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{starflux}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         
+             \PY{c+c1}{\PYZsh{}Defining the standard star area and finding its flux}
+             \PY{n}{std\PYZus{}star\PYZus{}xpos}\PY{o}{=}\PY{l+m+mf}{1805.3} \PY{c+c1}{\PYZsh{}x\PYZhy{}position of object in image being measured}
+             \PY{n}{std\PYZus{}star\PYZus{}ypos}\PY{o}{=}\PY{l+m+mf}{362.6}  \PY{c+c1}{\PYZsh{}y\PYZhy{}position of object in image being measured}
+             \PY{n}{std\PYZus{}starrad} \PY{o}{=} \PY{l+m+mi}{20} \PY{c+c1}{\PYZsh{}radius over which to measure the object\PYZsq{}s flux}
+             \PY{n}{std\PYZus{}starsky} \PY{o}{=} \PY{n}{photutils}\PY{o}{.}\PY{n}{CircularAperture}\PY{p}{(}\PY{p}{(}\PY{n}{std\PYZus{}star\PYZus{}xpos}\PY{p}{,} \PY{n}{std\PYZus{}star\PYZus{}ypos}\PY{p}{)}\PY{p}{,} \PY{n}{std\PYZus{}starrad}\PY{p}{)}
+             \PY{n}{std\PYZus{}star\PYZus{}circle} \PY{o}{=} \PY{n}{aperture\PYZus{}photometry}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{red}\PY{p}{,} \PY{n}{std\PYZus{}starsky}\PY{p}{)}
+             \PY{n}{std\PYZus{}starflux} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{std\PYZus{}star\PYZus{}circle}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aperture\PYZus{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The area over which the standard stars flux is measured is: }\PY{l+s+s1}{\PYZsq{}} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:.0f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{std\PYZus{}starsky}\PY{o}{.}\PY{n}{area}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The total standard star flux (not ajusted for background noise) is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:.0f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{std\PYZus{}starflux}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         
+             \PY{c+c1}{\PYZsh{}Defining the background sky area and finding its flux }
+             \PY{n}{xpos1} \PY{o}{=} \PY{l+m+mi}{1900} \PY{c+c1}{\PYZsh{}x\PYZhy{}position of noise}
+             \PY{n}{ypos1} \PY{o}{=} \PY{l+m+mi}{200}  \PY{c+c1}{\PYZsh{}y\PYZhy{}position of noise}
+             \PY{n}{nrad}  \PY{o}{=} \PY{l+m+mi}{100}  \PY{c+c1}{\PYZsh{}radius over which to calculate background noise}
+             \PY{n}{awaysky} \PY{o}{=} \PY{n}{photutils}\PY{o}{.}\PY{n}{CircularAperture}\PY{p}{(}\PY{p}{(}\PY{n}{xpos1}\PY{p}{,} \PY{n}{ypos1}\PY{p}{)}\PY{p}{,} \PY{n}{nrad}\PY{p}{)}
+             \PY{n}{sky\PYZus{}circle} \PY{o}{=} \PY{n}{aperture\PYZus{}photometry}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{red}\PY{p}{,} \PY{n}{awaysky}\PY{p}{)}
+             \PY{n}{skyflux} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{sky\PYZus{}circle}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aperture\PYZus{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The area over which background noise is calculated is: }\PY{l+s+s1}{\PYZsq{}} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:.0f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{awaysky}\PY{o}{.}\PY{n}{area}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The total background noise in this area is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:.0f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{skyflux}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         
+             \PY{c+c1}{\PYZsh{}plotting the measuiring radii onto the image}
+             \PY{n}{pylab}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{1100}\PY{p}{,}\PY{l+m+mi}{2000}\PY{p}{)}
+             \PY{n}{pylab}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{850}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{)}
+             \PY{n}{pylab}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{image}\PY{o}{.}\PY{n}{red}\PY{p}{,}\PY{n}{vmin}\PY{o}{=}\PY{l+m+mi}{250}\PY{p}{,}\PY{n}{vmax}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,}\PY{n}{norm}\PY{o}{=}\PY{n}{LogNorm}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{n}{pylab}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cleaned Data Image}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{starsky}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}the star measuring circle is plotted in white}
+             \PY{n}{awaysky}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}   \PY{c+c1}{\PYZsh{}the background noise measuring circle is plotted in red}
+             \PY{n}{std\PYZus{}starsky}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}the standard star measuring circle is plotted in white}
+         
+             \PY{c+c1}{\PYZsh{}Calculating flux of just the star}
+             \PY{c+c1}{\PYZsh{}1st calculate background noise per pixel}
+         
+             \PY{n}{f1} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{sky\PYZus{}circle}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aperture\PYZus{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{awaysky}\PY{o}{.}\PY{n}{area}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}Skycircle flux per pixel for away sky dimensions}
+             \PY{n}{f2} \PY{o}{=} \PY{n}{f1}\PY{o}{*}\PY{n}{starsky}\PY{o}{.}\PY{n}{area}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}background noise per pixel multiplied by pixel area for star}
+         
+             \PY{c+c1}{\PYZsh{}Star flux is the flux measured in starsky \PYZhy{} (background pixel noise per area * starsky area)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Background noise per pixel is:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:.0f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{f1}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{starflux\PYZus{}adjusted} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{star\PYZus{}circle}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aperture\PYZus{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{f1}\PY{o}{*}\PY{n}{starsky}\PY{o}{.}\PY{n}{area}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n}{std\PYZus{}error} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{sky\PYZus{}circle}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aperture\PYZus{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{awaysky}\PY{o}{.}\PY{n}{area}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}calculating standard error}
+             \PY{n}{sigma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{star\PYZus{}circle}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aperture\PYZus{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{std\PYZus{}error}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{sigmaf} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{sigma}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The flux emitted by the star (noise adjusted) is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:.0f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{starflux\PYZus{}adjusted}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{+/\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:.1g\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{sigmaf}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         
+             \PY{c+c1}{\PYZsh{}Calculating flux of just the standard star}
+             \PY{c+c1}{\PYZsh{}1st calculate background noise per pixel}
+         
+             \PY{n}{std\PYZus{}f1} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{sky\PYZus{}circle}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aperture\PYZus{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{awaysky}\PY{o}{.}\PY{n}{area}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}Skycircle flux per pixel for away sky dimensions}
+             \PY{n}{std\PYZus{}f2} \PY{o}{=} \PY{n}{f1}\PY{o}{*}\PY{n}{std\PYZus{}starsky}\PY{o}{.}\PY{n}{area}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}background noise per pixel multiplied by pixel area for star}
+         
+             \PY{c+c1}{\PYZsh{}Standard Star flux is the flux measured in std\PYZus{}starsky \PYZhy{} (background pixel noise per area * std\PYZus{}starsky area)}
+             \PY{n}{std\PYZus{}starflux\PYZus{}adjusted} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{std\PYZus{}star\PYZus{}circle}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aperture\PYZus{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{f1}\PY{o}{*}\PY{n}{std\PYZus{}starsky}\PY{o}{.}\PY{n}{area}\PY{p}{(}\PY{p}{)}
+             \PY{n}{std\PYZus{}sigma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{std\PYZus{}star\PYZus{}circle}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aperture\PYZus{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{std\PYZus{}error}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)} 
+             \PY{n}{std\PYZus{}sigmaf} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{std\PYZus{}sigma}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The flux emitted by the standard star (noise adjusted) is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:.0f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{std\PYZus{}starflux\PYZus{}adjusted}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{+/\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:.1g\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{sigmaf}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{}Zeropoint calculation}
+             \PY{c+c1}{\PYZsh{}Zeropoint is the magnitude that corresponds to a source with a flux of 1 cts/sec}
+             \PY{n}{zeropoint} \PY{o}{=}  \PY{l+m+mf}{19.50} \PY{o}{+} \PY{l+m+mf}{2.5}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{p}{(}\PY{n}{std\PYZus{}starflux\PYZus{}adjusted}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The magnitude of the zero point is: }\PY{l+s+s1}{\PYZsq{}} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:.4g\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{zeropoint}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}calculating the magnitude of the measured star}
+             \PY{n}{Mag\PYZus{}star} \PY{o}{=} \PY{n}{zeropoint} \PY{o}{\PYZhy{}} \PY{l+m+mf}{2.5}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{starflux\PYZus{}adjusted}\PY{p}{)}
+             \PY{n}{Mag\PYZus{}star\PYZus{}err} \PY{o}{=} \PY{n}{Mag\PYZus{}star}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{n}{sigmaf}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{star\PYZus{}circle}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aperture\PYZus{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{n}{std\PYZus{}sigmaf}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{std\PYZus{}star\PYZus{}circle}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aperture\PYZus{}sum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The magnitude of the star is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:.4g\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{Mag\PYZus{}star}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{+/\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}:.2g\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{Mag\PYZus{}star\PYZus{}err}\PY{p}{)}\PY{p}{)}
+         
+             
+         \PY{n}{star\PYZus{}photometry}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The area over which the stars flux is measured is: 1257
+The total star flux (not ajusted for background noise) is:  804313 counts
+The area over which the standard stars flux is measured is: 1257
+The total standard star flux (not ajusted for background noise) is:  631952 counts
+The area over which background noise is calculated is: 31416
+The total background noise in this area is:  12679688 counts
+Background noise per pixel is: 404 counts
+The flux emitted by the star (noise adjusted) is:  297125 +/- 9e+02 counts
+The flux emitted by the standard star (noise adjusted) is:  124765 +/- 9e+02 counts
+The magnitude of the zero point is: 48.84
+The magnitude of the star is:  17.33 +/- 0.62
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{2.2 Data Reduction - Kepler
+Lightcurve}\label{data-reduction---kepler-lightcurve}
+
+    Two sets of data were provided by Kepler, each corresponding to separate
+stellar systems. For the purposes of this paper, only the dataset for -
+'Object 1' will be considered. This dataset contains continuous flux and
+time observations of the designated star system. As such, lightcurves
+were constructed to identify the transits of exoplanets. The data was
+provided in the form of many separate lightcurve files, which are listed
+below.
+
+Before undertaking analysis of the entire dataset listed above, a subset
+of the data was initially looked at. The subset was plotted with on a
+graph of time in days against flux. Looking at the first graph below we
+can see that the stars flux randomly fluctuates with time between around
+41500 and 41700 counts. However, we can clearly see large periodic dips
+in the flux emitted by the star over a short amount of time. These dips
+in the lightcurve are attributed to the transiting of an extrasolar
+planet in front of the face of the star. Now that we have observed a
+planet transiting the face of the star in the plane of observation, we
+can start to data analysis on the object to calculate its period,
+radius, semi major axis and density and whether or not the planet is
+habitable.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}Fits files are open like this:}
+         \PY{n}{object\PYZus{}1} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data/Object}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{lc/kplr}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZus{}1.fits}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{mykepler}\PY{p}{,} \PY{n}{mykepler}\PY{p}{)}\PY{p}{)}
+         \PY{n}{object\PYZus{}1}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}the data in the extension can be stored like this:}
+         \PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{data}
+         \PY{c+c1}{\PYZsh{}the first extension is empty, it just has the information}
+         
+         \PY{c+c1}{\PYZsh{}The last extension holds a small image of the source:}
+         \PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{header}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}lets have a look at the second extension}
+         \PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}This is a table extension}
+         
+         \PY{c+c1}{\PYZsh{}Here the beginning has a description of columns in the table, including the units}
+         \PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{header}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Filename: Data/Object1lc/kplr1\_1.fits
+No.    Name      Ver    Type      Cards   Dimensions   Format
+  0  PRIMARY       1 PrimaryHDU      59   ()      
+  1  LIGHTCURVE    1 BinTableHDU    162   4370R x 20C   [D, E, J, E, E, E, E, E, E, J, D, E, D, E, D, E, D, E, E, E]   
+  2  APERTURE      1 ImageHDU        49   (6, 6)   int32   
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} XTENSION= 'BINTABLE'           / marks the beginning of a new HDU               
+         BITPIX  =                    8 / array data type                                
+         NAXIS   =                    2 / number of array dimensions                     
+         NAXIS1  =                  100 / length of first array dimension                
+         NAXIS2  =                 4370 / length of second array dimension               
+         PCOUNT  =                    0 / group parameter count (not used)               
+         GCOUNT  =                    1 / group count (not used)                         
+         TFIELDS =                   20 / number of table fields                         
+         TTYPE1  = 'TIME    '           / column title: data time stamps                 
+         TFORM1  = 'D       '           / column format: 64-bit floating point           
+         TUNIT1  = 'BJD - 2454833'      / column units: barycenter corrected JD          
+         TDISP1  = 'D14.7   '           / column display format                          
+         TTYPE2  = 'TIMECORR'           / column title: barycenter - timeslice correction
+         TFORM2  = 'E       '           / column format: 32-bit floating point           
+         TUNIT2  = 'd       '           / column units: day                              
+         TDISP2  = 'E13.6   '           / column display format                          
+         TTYPE3  = 'CADENCENO'          / column title: unique cadence number            
+         TFORM3  = 'J       '           / column format: signed 32-bit integer           
+         TDISP3  = 'I10     '           / column display format                          
+         TTYPE4  = 'SAP\_FLUX'           / column title: aperture photometry flux         
+         TFORM4  = 'E       '           / column format: 32-bit floating point           
+         TUNIT4  = 'e-/s    '           / column units: electrons per second             
+         TDISP4  = 'E14.7   '           / column display format                          
+         TTYPE5  = 'SAP\_FLUX\_ERR'       / column title: aperture phot. flux error        
+         TFORM5  = 'E       '           / column format: 32-bit floating point           
+         TUNIT5  = 'e-/s    '           / column units: electrons per second (1-sigma)   
+         TDISP5  = 'E14.7   '           / column display format                          
+         TTYPE6  = 'SAP\_BKG '           / column title: aperture phot. background flux   
+         TFORM6  = 'E       '           / column format: 32-bit floating point           
+         TUNIT6  = 'e-/s    '           / column units: electrons per second             
+         TDISP6  = 'E14.7   '           / column display format                          
+         TTYPE7  = 'SAP\_BKG\_ERR'        / column title: ap. phot. background flux error  
+         TFORM7  = 'E       '           / column format: 32-bit floating point           
+         TUNIT7  = 'e-/s    '           / column units: electrons per second (1-sigma)   
+         TDISP7  = 'E14.7   '           / column display format                          
+         TTYPE8  = 'PDCSAP\_FLUX'        / column title: aperture phot. PDC flux          
+         TFORM8  = 'E       '           / column format: 32-bit floating point           
+         TUNIT8  = 'e-/s    '           / column units: electrons per second             
+         TDISP8  = 'E14.7   '           / column display format                          
+         TTYPE9  = 'PDCSAP\_FLUX\_ERR'    / column title: ap. phot. PDC flux error         
+         TFORM9  = 'E       '           / column format: 32-bit floating point           
+         TUNIT9  = 'e-/s    '           / column units: electrons per second (1-sigma)   
+         TDISP9  = 'E14.7   '           / column display format                          
+         TTYPE10 = 'SAP\_QUALITY'        / column title: aperture photometry quality flag 
+         TFORM10 = 'J       '           / column format: signed 32-bit integer           
+         TDISP10 = 'B16.16  '           / column display format                          
+         TTYPE11 = 'PSF\_CENTR1'         / column title: PSF-fitted column centroid       
+         TFORM11 = 'D       '           / column format: 64-bit floating point           
+         TUNIT11 = 'pixel   '           / column units: pixel                            
+         TDISP11 = 'F10.5   '           / column display format                          
+         TTYPE12 = 'PSF\_CENTR1\_ERR'     / column title: PSF-fitted column error          
+         TFORM12 = 'E       '           / column format: 32-bit floating point           
+         TUNIT12 = 'pixel   '           / column units: pixel (1-sigma)                  
+         TDISP12 = 'E14.7   '           / column display format                          
+         TTYPE13 = 'PSF\_CENTR2'         / column title: PSF-fitted row centroid          
+         TFORM13 = 'D       '           / column format: 64-bit floating point           
+         TUNIT13 = 'pixel   '           / column units: pixel                            
+         TDISP13 = 'F10.5   '           / column display format                          
+         TTYPE14 = 'PSF\_CENTR2\_ERR'     / column title: PSF-fitted row error             
+         TFORM14 = 'E       '           / column format: 32-bit floating point           
+         TUNIT14 = 'pixel   '           / column units: pixel (1-sigma)                  
+         TDISP14 = 'E14.7   '           / column display format                          
+         TTYPE15 = 'MOM\_CENTR1'         / column title: moment-derived column centroid   
+         TFORM15 = 'D       '           / column format: 64-bit floating point           
+         TUNIT15 = 'pixel   '           / column units: pixel                            
+         TDISP15 = 'F10.5   '           / column display format                          
+         TTYPE16 = 'MOM\_CENTR1\_ERR'     / column title: moment-derived column error      
+         TFORM16 = 'E       '           / column format: 32-bit floating point           
+         TUNIT16 = 'pixel   '           / column units: pixel (1-sigma)                  
+         TDISP16 = 'E14.7   '           / column display format                          
+         TTYPE17 = 'MOM\_CENTR2'         / column title: moment-derived row centroid      
+         TFORM17 = 'D       '           / column format: 64-bit floating point           
+         TUNIT17 = 'pixel   '           / column units: pixel                            
+         TDISP17 = 'F10.5   '           / column display format                          
+         TTYPE18 = 'MOM\_CENTR2\_ERR'     / column title: moment-derived row error         
+         TFORM18 = 'E       '           / column format: 32-bit floating point           
+         TUNIT18 = 'pixel   '           / column units: pixel (1-sigma)                  
+         TDISP18 = 'E14.7   '           / column display format                          
+         TTYPE19 = 'POS\_CORR1'          / column title: column position correction       
+         TFORM19 = 'E       '           / column format: 32-bit floating point           
+         TUNIT19 = 'pixels  '           / column units: pixel                            
+         TDISP19 = 'E14.7   '           / column display format                          
+         TTYPE20 = 'POS\_CORR2'          / column title: row position correction          
+         TFORM20 = 'E       '           / column format: 32-bit floating point           
+         TUNIT20 = 'pixels  '           / column units: pixel                            
+         TDISP20 = 'E14.7   '           / column display format                          
+         INHERIT =                    T / inherit the primary header                     
+         EXTNAME = 'LIGHTCURVE'         / name of extension                              
+         EXTVER  =                    1 / extension version number (not format version)  
+         TELESCOP= 'Kepler  '           / telescope                                      
+         INSTRUME= 'Kepler Photometer'  / detector type                                  
+         OBJECT  = 'None of your business' / string version of target id                 
+         KEPLERID= 'None of your business' / unique Kepler target identifier             
+         RADESYS = 'ICRS    '           / reference frame of celestial coordinates       
+         RA\_OBJ  = 'None of your business' / [deg] right ascension                       
+         DEC\_OBJ = 'None of your business' / [deg] declination                           
+         EQUINOX =               2000.0 / equinox of celestial coordinate system         
+         EXPOSURE=          82.20427266 / [d] time on source                             
+         TIMEREF = 'SOLARSYSTEM'        / barycentric correction applied to times        
+         TASSIGN = 'SPACECRAFT'         / where time is assigned                         
+         TIMESYS = 'TDB     '           / time system is barycentric JD                  
+         BJDREFI =              2454833 / integer part of BJD reference date             
+         BJDREFF =           0.00000000 / fraction of the day in BJD reference date      
+         TIMEUNIT= 'd       '           / time unit for TIME, TSTART and TSTOP           
+         TELAPSE =          89.29084789 / [d] TSTOP - TSTART                             
+         LIVETIME=          82.20427266 / [d] TELAPSE multiplied by DEADC                
+         TSTART  =         260.21442006 / observation start time in BJD-BJDREF           
+         TSTOP   =         349.50526794 / observation stop time in BJD-BJDREF            
+         LC\_START=       55092.72220972 / mid point of first cadence in MJD              
+         LC\_END  =       55181.99659822 / mid point of last cadence in MJD               
+         DEADC   =           0.92063492 / deadtime correction                            
+         TIMEPIXR=                  0.5 / bin time beginning=0 middle=0.5 end=1          
+         TIERRELA=             5.78E-07 / [d] relative time error                        
+         TIERABSO=                      / [d] absolute time error                        
+         INT\_TIME=       6.019802903270 / [s] photon accumulation time per frame         
+         READTIME=       0.518948526144 / [s] readout time per frame                     
+         FRAMETIM=       6.538751429414 / [s] frame time (INT\_TIME + READTIME)           
+         NUM\_FRM =                  270 / number of frames per time stamp                
+         TIMEDEL =     0.02043359821692 / [d] time resolution of data                    
+         DATE-OBS= '2009-09-18T17:05:16.190Z' / TSTART as UTC calendar date              
+         DATE-END= '2009-12-17T00:09:48.815Z' / TSTOP as UTC calendar date               
+         BACKAPP =                    T / background is subtracted                       
+         DEADAPP =                    T / deadtime applied                               
+         VIGNAPP =                    T / vignetting or collimator correction applied    
+         GAIN    =               105.23 / [electrons/count] channel gain                 
+         READNOIS=            84.594397 / [electrons] read noise                         
+         NREADOUT=                  270 / number of read per cadence                     
+         TIMSLICE=                    3 / time-slice readout sequence section            
+         MEANBLCK=                  733 / [count] FSW mean black level                   
+         LCFXDOFF=               419400 / long cadence fixed offset                      
+         SCFXDOFF=               219400 / short cadence fixed offset                     
+         CDPP3\_0 =   101.72696685791016 / [ppm] RMS CDPP on 3.0-hr time scales           
+         CDPP6\_0 =     125.456787109375 / [ppm] RMS CDPP on 6.0-hr time scales           
+         CDPP12\_0=   110.96907806396484 / [ppm] RMS CDPP on 12.0-hr time scales          
+         CROWDSAP=               0.9992 / Ratio of target flux to total flux in op. ap.  
+         FLFRCSAP=               0.7252 / Frac. of target flux w/in the op. aperture     
+         NSPSDDET=                    0 / Number of SPSDs detected                       
+         NSPSDCOR=                    0 / Number of SPSDs corrected                      
+         PDCVAR  =   1.8069709539413452 / Target variability                             
+         PDCMETHD= 'multiScaleMap'      / PDC algorithm used for target                  
+         NUMBAND =                    3 / Number of scale bands                          
+         FITTYPE1= 'robust  '           / Fit type used for band 1                       
+         PR\_GOOD1=                  0.0 / Prior goodness for band 1                      
+         PR\_WGHT1=                  0.0 / Prior weight for band 1                        
+         FITTYPE2= 'prior   '           / Fit type used for band 2                       
+         PR\_GOOD2=  0.07292769849300385 / Prior goodness for band 2                      
+         PR\_WGHT2=   11.492071151733398 / Prior weight for band 2                        
+         FITTYPE3= 'prior   '           / Fit type used for band 3                       
+         PR\_GOOD3=    0.516323983669281 / Prior goodness for band 3                      
+         PR\_WGHT3=    81.36321258544922 / Prior weight for band 3                        
+         PDC\_TOT =   0.7119521498680115 / PDC total goodness metric for target           
+         PDC\_TOTP=   1.5745707750320435 / PDC\_TOT percentile compared to mod/out         
+         PDC\_COR =   0.9627798199653625 / PDC correlation goodness metric for target     
+         PDC\_CORP=    9.833599090576172 / PDC\_COR percentile compared to mod/out         
+         PDC\_VAR =   0.9373531937599182 / PDC variability goodness metric for target     
+         PDC\_VARP=      7.6667160987854 / PDC\_VAR percentile compared to mod/out         
+         PDC\_NOI =   0.7827537655830383 / PDC noise goodness metric for target           
+         PDC\_NOIP=    8.062134742736816 / PDC\_NOI percentile compared to mod/out         
+         PDC\_EPT =                  1.0 / PDC earth point goodness metric for target     
+         PDC\_EPTP=    54.63613510131836 / PDC\_EPT percentile compared to mod/out         
+         CHECKSUM= 'hhO8jhM6hhM6hhM6'   / HDU checksum updated 2019-09-17T17:12:24       
+         DATASUM = '3847933012'         / data unit checksum updated 2019-09-17T17:12:24 
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}Plotting the lightcurves as a function of time and flux:}
+         \PY{c+c1}{\PYZsh{}This plots the barycentre time and flux in e/s}
+         \PY{c+c1}{\PYZsh{}Measurements errors are also included, you can plot them as follows}
+         
+         \PY{c+c1}{\PYZsh{}Plotting time and flux to see how the system behaves over time and if there are any transits}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDCSAP\PYZus{}FLUX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{errorbar}\PY{p}{(}\PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDCSAP\PYZus{}FLUX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDCSAP\PYZus{}FLUX\PYZus{}ERR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time [days]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flux}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}The error bars are small, so we need to zoom in to see them}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} Text(0,0.5,'Flux')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}Plotting the lightcurve again}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDCSAP\PYZus{}FLUX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Measurements errors are also included, you can plot them as follows}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{errorbar}\PY{p}{(}\PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDCSAP\PYZus{}FLUX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDCSAP\PYZus{}FLUX\PYZus{}ERR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}We\PYZsq{}ll need to zoom in to see them:}
+         \PY{c+c1}{\PYZsh{}Zoom in over a transit}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{270}\PY{p}{,} \PY{l+m+mi}{290}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{41200}\PY{p}{,} \PY{l+m+mi}{41700}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time [days]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flux}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} Text(0,0.5,'Flux')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    for lcfile in glob.glob('Data/Object\%slc/kplr*.fits' \%(mykepler)): tmp
+= fits.open(lcfile) tmptime = (tmp{[}1{]}.data{[}'TIME'{]}) tmpflux =
+(tmp{[}1{]}.data{[}'PDCSAP\_FLUX'{]}) tmperror =
+(tmp{[}1{]}.data{[}'PDCSAP\_FLUX\_ERR'{]}) pylab.plot(tmptime, tmpflux,
+c='k')
+
+    Starting with just the one fits file, the data reduction techniques were
+tested, these techniques were then applied to the enitre Kepler data
+set.
+
+When inspecting the data, there are places that are missing data or
+filled with values that don't make sense, therefore the data needs to be
+reduced. It is common practice to fill missing data points with inf
+values and nan value. Some functions in the `numpy' and `scipy' python
+libraries don't work when there and inf/nan values in the array, so we
+need to apply a filter to remove them. Applying an inf/nan mask will
+make it such that the when the array is passed into functions the
+inf/nan points will be passed over by the function.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}Numpy/Scipy functions do not work with Inf and Nan values}
+         \PY{c+c1}{\PYZsh{}Lets create some new variables to which we can apply an Inf/Nan filter to}
+         
+         \PY{n}{t\PYZus{}nofilter} \PY{o}{=} \PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{}time column of fits file}
+         \PY{n}{f\PYZus{}nofilter} \PY{o}{=} \PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDCSAP\PYZus{}FLUX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{}point source flux data from the fits file}
+         \PY{n}{e\PYZus{}nofilter} \PY{o}{=} \PY{n}{object\PYZus{}1}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDCSAP\PYZus{}FLUX\PYZus{}ERR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{}point source flux error from the fits file}
+         
+         \PY{c+c1}{\PYZsh{}Applying a mask filter to remove nan points}
+         
+         \PY{n}{nonan} \PY{o}{=} \PY{o}{\PYZti{}}\PY{n}{np}\PY{o}{.}\PY{n}{isnan}\PY{p}{(}\PY{n}{f\PYZus{}nofilter}\PY{p}{)}
+         \PY{n}{t1} \PY{o}{=} \PY{n}{t\PYZus{}nofilter}\PY{p}{[}\PY{n}{nonan}\PY{p}{]}
+         \PY{n}{f1} \PY{o}{=} \PY{n}{f\PYZus{}nofilter}\PY{p}{[}\PY{n}{nonan}\PY{p}{]}
+         \PY{n}{e1} \PY{o}{=} \PY{n}{e\PYZus{}nofilter}\PY{p}{[}\PY{n}{nonan}\PY{p}{]}
+\end{Verbatim}
+
+
+    Now that our data has been cleaned of these inf/nan data points. We can
+normalise the flux emitted by the star. This will give us a value for
+the average flux emitted by the star. We have three options of filters
+to use, a Savtisky-Galoy function, a spline filter or and median filter.
+The best filter is the one that fits lightcurve of the star whilst
+ignoring the transits of the planet. At low kernel sizes the
+Savitsky-Galoy and spline filter both matched the lightcurve of the star
+well, but they could not exclude the exoplanet dips. In order to exclude
+the dips from the data, a high kernel size had to be used with both
+filters, this outputted a normalisation lightcurve that had large
+fluctuations in the stars flux. The spline filter is also a demanding
+function to execute and takes a long time to complete. The median filter
+was preferred over the other two filter functions as it was able to
+match the lightcurve and avoid the planet transits whilst also being
+relatively quick to execute.
+
+The medium filter works by finding the median value between two limits
+in the data. It then moves in the positive x direction by the difference
+between the two limits. The function iterates over the whole array,
+creating a median point value for every iteration. The limits correspond
+to a kernel size, i.e. the amount of data points over which the median
+is determined. The filter outputs these values into an array which can
+then be used to normalise the data by dividing the flux array by this
+array. The kernel size was chosen to be 51, this was chosen by looking
+at the normalisation output graph and trying different values to get the
+flattest normalisation lightcurve with the strongest planet dips.
+
+We now have a flat lightcurve of fluxes with only dips from exoplanet
+transits. Another use of normalising the curve is it shows us the
+percentage dip in flux caused by the exoplanet as a decimal value.
+
+The normalised lightcurve is important, not just because it removes the
+star activity, but because in order to create a periodogram for the
+star, we need a flat lightcurve. The periodogram will pick up the random
+flux fluctuations and plot them as periods, we don't want this in our
+data because this will lead to false conclusions on the number of
+exoplanets in the extrasolar system. Therefore, by using a normalised
+lightcurve most random flux variations are removed and the periodogram
+will be easier to interpret.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}kernel\PYZus{}size is the size of the window over which the median is calculated }
+         
+         \PY{n}{medfil} \PY{o}{=} \PY{n}{medfilt}\PY{p}{(}\PY{n}{f1}\PY{p}{,} \PY{n}{kernel\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{21}\PY{p}{)} \PY{c+c1}{\PYZsh{}talk about why i chose median filter and the kernel size}
+         
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t1}\PY{p}{,} \PY{n}{f1}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t1}\PY{p}{,} \PY{n}{medfil}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Median Filter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{259}\PY{p}{,} \PY{l+m+mi}{351}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{41200}\PY{p}{,} \PY{l+m+mi}{42100}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time [days]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Flux}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} Text(0,0.5,'Flux')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{}plotting normalised median}
+         
+         \PY{n}{flux\PYZus{}normalised} \PY{o}{=} \PY{n}{f1}\PY{o}{/}\PY{n}{medfil} \PY{c+c1}{\PYZsh{}Normalise flux by dividing by the median filter}
+         \PY{n}{flux\PYZus{}error\PYZus{}normalised} \PY{o}{=} \PY{n}{e1}\PY{o}{/}\PY{n}{medfil} \PY{c+c1}{\PYZsh{}Normalise flux error by dividing by the median filter}
+         
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t1}\PY{p}{,} \PY{n}{flux\PYZus{}normalised}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time [days]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Normalised Flux}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} Text(0,0.5,'Normalised Flux')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{3. Results - Modelling of Kepler
+lightcurve}\label{results---modelling-of-kepler-lightcurve}
+
+    Now that the data has been reduced, the periods of any exoplanets
+orbiting around the host star can be determined. Each periodic dip in
+the flux in the lightcurve corresponds to an exoplanet transiting the
+face of the star. Therefore, by applying the lombscargle periodogram
+function to the lightcurve data set, one would expect an output of the
+periods in days of each transiting planet. The lombscargle function acts
+similarly to a Fourier transform from the time domain to the frequency
+domain. The first application of the function produces a plot, but there
+is a high level of aliasing. This was reduced by reapplying the
+lombscargle function a second time to the data. This gave a plot of lots
+of periods, inspecting the graph one can see the periods of two planets
+orbiting the star. Planet 1 has a period of 19.237 days and Planet 2 has
+a period of 38.98 days. These periods are displayed clearly by the black
+vertical lines. A second transit from Planet 1 can be seen next to the
+period of Planet 2. There is still aliasing in the plot, but it occurs
+at periodic intervals, the second planet is distinguished from the
+low-level aliasing because it does not follow the same pattern
+behaviours as the low-level peaks.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{}Finding the period of exoplanets using periodgrams}
+         
+         \PY{n}{freq} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{130}\PY{p}{,}\PY{l+m+mi}{130}\PY{p}{,} \PY{l+m+mi}{13000}\PY{p}{)} \PY{c+c1}{\PYZsh{}defining the minimum amd maximum sampling time in the frequency space}
+         
+         \PY{n}{lomb} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{signal}\PY{o}{.}\PY{n}{lombscargle}\PY{p}{(}\PY{n}{t1}\PY{p}{,} \PY{n}{flux\PYZus{}normalised}\PY{p}{,} \PY{n}{freq}\PY{p}{,} \PY{n}{precenter}\PY{o}{=} \PY{k+kc}{True}\PY{p}{)} 
+         
+         \PY{c+c1}{\PYZsh{}lomb is the first transform from the time domain to the frequency domain}
+         
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{freq}\PY{p}{,} \PY{n}{lomb}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (days)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} Text(0.5,0,'Time (days)')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}Second application of the Lomscargle function gives the periods}
+         
+         \PY{n}{lomb\PYZus{}1} \PY{o}{=} \PY{n}{scipy}\PY{o}{.}\PY{n}{signal}\PY{o}{.}\PY{n}{lombscargle}\PY{p}{(}\PY{n}{freq}\PY{p}{,} \PY{n}{lomb}\PY{p}{,} \PY{n}{freq}\PY{p}{,} \PY{n}{precenter}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{freq}\PY{p}{,} \PY{n}{lomb\PYZus{}1}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (days)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} Text(0.5,0,'Time (days)')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{freq}\PY{p}{,} \PY{n}{lomb\PYZus{}1}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.10}\PY{p}{,}\PY{l+m+mi}{60}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,}\PY{l+m+mf}{0.0000000006}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (days)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} Text(0.5,0,'Time (days)')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{freq}\PY{p}{,} \PY{n}{lomb\PYZus{}1}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,}\PY{l+m+mf}{0.0000000002}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (days)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Planet 1 period}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{actper} \PY{o}{=} \PY{l+m+mf}{19.237} \PY{c+c1}{\PYZsh{}\PYZsh{} the actual period}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{actper}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{} indicating the actual period}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{:}
+             \PY{n}{pylab}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{actper}\PY{o}{*}\PY{n}{i}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{freq}\PY{p}{,} \PY{n}{lomb\PYZus{}1}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{45}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,}\PY{l+m+mf}{0.0000000004}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (days)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Planet 2 period}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}actper = 19.237 \PYZsh{}\PYZsh{} the actual period}
+         \PY{c+c1}{\PYZsh{}pylab.axvline(actper, c=\PYZsq{}y\PYZsq{}) \PYZsh{}\PYZsh{} indicating the actual period}
+         \PY{c+c1}{\PYZsh{}for i in [1, 1.5, 2, 2.5, 3.0]:}
+         \PY{c+c1}{\PYZsh{}    pylab.axvline(actper*i, c=\PYZsq{}k\PYZsq{})}
+             
+         \PY{n}{actper1} \PY{o}{=} \PY{l+m+mf}{38.98} \PY{c+c1}{\PYZsh{}\PYZsh{} the actual period}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{actper1}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{} indicating the actual period}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{1.00}\PY{p}{,} \PY{l+m+mf}{1.5}\PY{p}{,} \PY{l+m+mf}{2.0}\PY{p}{]}\PY{p}{:}
+             \PY{n}{pylab}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{actper1}\PY{o}{*}\PY{n}{i}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Knowing the periods of the planets from one lightcurve file, one can
+start working with the entire list of lightcurves provided by the Kepler
+space telescope. The program starts by entering the directory of where
+the lightcurve data is saved. A full plot of all the lightcurves is then
+made. We can clearly see that there is gap between each sampling taken
+by Kepler. We also see a large range of flux values for each lightcurve
+file. Each individual lightcurve needs to be normalised and then
+combined into one shorter lightcurve. The purpose of folding the data,
+i.e. superimposing each lightcurve on top of one another, is that it
+makes a stronger trend in the transits of the exoplanets. First the data
+was normalised using the same median filter as before and then saved to
+a new `.csv' file so that it could be folded. A graphical output of the
+normalised unfolded data can be seen below. As one can see the unfolded
+lightcurve is 1600 days long and features many transits. The program
+folds the normalised data into a shorter phase diagram, with phase from
+1 to 3. We can see from this phase diagram a strong trend each time an
+exoplanet transits the star.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Working over the entire data set}
+         \PY{n}{glob}\PY{o}{.}\PY{n}{glob}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data/Object}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{lc/kplr*.fits}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{mykepler}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}Lists all the lightcurve files .fits in the directory}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} ['Data/Object1lc/kplr1\_4.fits',
+          'Data/Object1lc/kplr1\_14.fits',
+          'Data/Object1lc/kplr1\_7.fits',
+          'Data/Object1lc/kplr1\_11.fits',
+          'Data/Object1lc/kplr1\_1.fits',
+          'Data/Object1lc/kplr1\_3.fits',
+          'Data/Object1lc/kplr1\_5.fits',
+          'Data/Object1lc/kplr1\_2.fits',
+          'Data/Object1lc/kplr1\_17.fits',
+          'Data/Object1lc/kplr1\_16.fits',
+          'Data/Object1lc/kplr1\_8.fits',
+          'Data/Object1lc/kplr1\_6.fits',
+          'Data/Object1lc/kplr1\_12.fits',
+          'Data/Object1lc/kplr1\_13.fits',
+          'Data/Object1lc/kplr1\_10.fits',
+          'Data/Object1lc/kplr1\_9.fits',
+          'Data/Object1lc/kplr1\_15.fits']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{}Lets plot all our lightcurves together onto one graph}
+         
+         \PY{k}{for} \PY{n}{lcfile} \PY{o+ow}{in} \PY{n}{glob}\PY{o}{.}\PY{n}{glob}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data/Object}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{lc/kplr*.fits}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{mykepler}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{tmp} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{lcfile}\PY{p}{)}
+             \PY{n}{tmptime} \PY{o}{=} \PY{p}{(}\PY{n}{tmp}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{tmpflux} \PY{o}{=} \PY{p}{(}\PY{n}{tmp}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDCSAP\PYZus{}FLUX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{tmperror} \PY{o}{=} \PY{p}{(}\PY{n}{tmp}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDCSAP\PYZus{}FLUX\PYZus{}ERR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tmptime}\PY{p}{,} \PY{n}{tmpflux}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}Applying the same data reduction techniques used on one lightcurve}
+         \PY{c+c1}{\PYZsh{}to the entire lightcurve dataset}
+         
+         \PY{n}{full\PYZus{}dataset\PYZus{}time}\PY{o}{=}\PY{p}{[}\PY{p}{]}    \PY{c+c1}{\PYZsh{} define new set arrays for our entire dataset (stop conflicting variables)}
+         \PY{n}{full\PYZus{}dataset\PYZus{}flux}\PY{o}{=}\PY{p}{[}\PY{p}{]}    
+         \PY{n}{full\PYZus{}dataset\PYZus{}flux\PYZus{}error}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}Opening and reading all the fits files in the object 1 directory}
+         
+         \PY{k}{for} \PY{n}{lcfile} \PY{o+ow}{in} \PY{n}{glob}\PY{o}{.}\PY{n}{glob}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data/Object}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{lc/kplr*.fits}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{mykepler}\PY{p}{)}\PY{p}{)}\PY{p}{:} 
+             \PY{n}{tmp} \PY{o}{=} \PY{n}{fits}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{lcfile}\PY{p}{)}
+             \PY{n}{t} \PY{o}{=} \PY{p}{(}\PY{n}{tmp}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{full\PYZus{}flux} \PY{o}{=} \PY{p}{(}\PY{n}{tmp}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDCSAP\PYZus{}FLUX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{error} \PY{o}{=} \PY{p}{(}\PY{n}{tmp}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDCSAP\PYZus{}FLUX\PYZus{}ERR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             
+             
+         \PY{c+c1}{\PYZsh{}Plotting a normalised lightcurve for all the fits files}
+         
+             \PY{n}{medfilter} \PY{o}{=} \PY{n}{medfilt}\PY{p}{(}\PY{n}{full\PYZus{}flux}\PY{p}{,} \PY{n}{kernel\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{21}\PY{p}{)} \PY{c+c1}{\PYZsh{}Calling the same median filter function as before}
+             \PY{n}{normalised\PYZus{}flux} \PY{o}{=} \PY{n}{full\PYZus{}flux}\PY{o}{/}\PY{n}{medfilter}            \PY{c+c1}{\PYZsh{}Normalise flux error by dividing by the median filter as before}
+             \PY{n}{normalised\PYZus{}error} \PY{o}{=} \PY{n}{error}\PY{o}{/}\PY{n}{medfilter}               \PY{c+c1}{\PYZsh{}Normalise flux error by dividing by the median filter as before}
+             
+             \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{normalised\PYZus{}flux}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}plots the normalised fits data}
+             
+         \PY{c+c1}{\PYZsh{}Adds the noramlised fits data onto the end of each array}
+             
+             \PY{n}{full\PYZus{}dataset\PYZus{}time}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{t}\PY{p}{)}
+             \PY{n}{full\PYZus{}dataset\PYZus{}flux}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{normalised\PYZus{}flux}\PY{p}{)}
+             \PY{n}{full\PYZus{}dataset\PYZus{}flux\PYZus{}error}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{normalised\PYZus{}error}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{}In order to work with the normalised dataset, we need to save it.}
+         \PY{c+c1}{\PYZsh{}Saves the arrays to a new file}
+         \PY{c+c1}{\PYZsh{}We\PYZsq{}ll first need to write our data to file.}
+         
+         \PY{n}{np}\PY{o}{.}\PY{n}{savetxt}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{normalised\PYZus{}dataset.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{t}\PY{p}{,} \PY{n}{normalised\PYZus{}flux}\PY{p}{,} \PY{n}{normalised\PYZus{}error}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}JD, mag, error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{}We want to combine all the transits together to get a stronger data trend}
+         \PY{c+c1}{\PYZsh{}To do this we apply a fold to the dataset so that they overlap}
+         
+         \PY{k}{def} \PY{n+nf}{fold\PYZus{}lightcurve}\PY{p}{(}\PY{n}{filename}\PY{p}{,} \PY{n}{period}\PY{p}{,} \PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+             \PY{n}{obj\PYZus{}name} \PY{o}{=} \PY{n}{kwargs}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{obj\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}
+             \PY{n}{outdata} \PY{o}{=} \PY{n}{kwargs}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{output\PYZus{}file}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{folded\PYZus{}lc\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plotname} \PY{o}{=} \PY{n}{kwargs}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{plot\PYZus{}file}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{folded\PYZus{}lc.pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} Read in the data. Should be comma separated, header row (if present) should have \PYZsh{} at the start.}
+             \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{filename}\PY{p}{,} \PY{n}{usecols}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{names}\PY{o}{=}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{JD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{comment}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{columns}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mi}{3}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{File format should be }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{              (M)JD, magnitude, uncertainty}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{n}{exit}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} Folding the lightcurve:}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} Phase = JD/period \PYZhy{} floor(JD/period)}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} The floor function is there to make sure that the phase is between 0 and 1.}
+             
+             \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Phase}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{JD}\PY{o}{/} \PY{n}{period}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{JD} \PY{o}{/} \PY{n}{period}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             
+               
+             \PY{c+c1}{\PYZsh{}\PYZsh{} Now make the plot}
+             
+             \PY{n}{pyplot}\PY{o}{.}\PY{n}{clf}\PY{p}{(}\PY{p}{)}
+             \PY{n}{pyplot}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} concatenating the arrays to make phase \PYZhy{}\PYZgt{} 0 \PYZhy{} 3}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} This makes it easier to see if periodic lightcurves join up as expected}
+             
+             \PY{n}{phase\PYZus{}long} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{Phase}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{Phase} \PY{o}{+} \PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{Phase} \PY{o}{+} \PY{l+m+mf}{2.0}\PY{p}{)}\PY{p}{)}
+             \PY{n}{mag\PYZus{}long} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{mag}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{mag}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{mag}\PY{p}{)}\PY{p}{)}
+             \PY{n}{err\PYZus{}long} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{error}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{error}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{error}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{pyplot}\PY{o}{.}\PY{n}{errorbar}\PY{p}{(}\PY{n}{phase\PYZus{}long}\PY{p}{,} \PY{n}{mag\PYZus{}long}\PY{p}{,} \PY{n}{yerr}\PY{o}{=}\PY{n}{err\PYZus{}long}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{None}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}nolegend\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mec}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Grey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} Inverting the y axis because magnitudes}
+             \PY{c+c1}{\PYZsh{}pyplot.gca().invert\PYZus{}yaxis()}
+             
+             \PY{n}{pyplot}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Phase (\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{phi\PYZdl{})}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{pyplot}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Magnitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} making the plot title to include object and period. }
+             \PY{c+c1}{\PYZsh{}\PYZsh{} If no object name given in kwargs then title is just period}
+             \PY{k}{if} \PY{n}{obj\PYZus{}name} \PY{o}{!=} \PY{k+kc}{None}\PY{p}{:}
+                 \PY{n}{namestring} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{obj\PYZus{}name}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{, }\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{namestring} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{titletext} \PY{o}{=} \PY{n}{namestring} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P = }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{around}\PY{p}{(}\PY{n}{period}\PY{p}{,} \PY{n}{decimals}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{pyplot}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{n}{titletext}\PY{p}{)}
+             
+             \PY{n}{pyplot}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{n}{plotname}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} Printing the phased data to a csv file.}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} If filename not given in fold\PYZus{}lightcurve arguments default filename is folded\PYZus{}lc\PYZus{}data.csv}
+             
+             \PY{n}{data}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{outdata}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             
+             \PY{k}{return} \PY{n}{data}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{}Lets try folding on the period we found from the single lightcurve}
+         \PY{n}{fold\PYZus{}lightcurve}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{normalised\PYZus{}dataset.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{19.237}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}Phase goes from 0\PYZhy{}1, we can clear see a nicely folded transit for this phase}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}                JD       mag     error     Phase
+         0     1001.208319       NaN       NaN  0.045970
+         1     1001.228752  1.000680  0.000174  0.047032
+         2     1001.249184  1.000214  0.000174  0.048094
+         3     1001.269617  0.999926  0.000174  0.049156
+         4     1001.290050  0.999382  0.000174  0.050218
+         5     1001.310483  0.999693  0.000174  0.051280
+         6     1001.330916  0.999686  0.000174  0.052343
+         7     1001.351348  0.999767  0.000174  0.053405
+         8     1001.371781  0.999928  0.000174  0.054467
+         9     1001.392214  1.000000  0.000174  0.055529
+         10    1001.412647  0.999709  0.000174  0.056591
+         11    1001.433080  1.000072  0.000174  0.057653
+         12    1001.453512  0.999861  0.000174  0.058716
+         13    1001.473945  1.000000  0.000174  0.059778
+         14    1001.494378  1.000001  0.000174  0.060840
+         15    1001.514811  1.000195  0.000174  0.061902
+         16    1001.535244  1.000133  0.000173  0.062964
+         17    1001.555676  0.999920  0.000174  0.064026
+         18    1001.576109  1.000000  0.000174  0.065089
+         19    1001.596542  0.999978  0.000173  0.066151
+         20    1001.616975  1.000000  0.000174  0.067213
+         21    1001.637407  0.999935  0.000174  0.068275
+         22    1001.657840  0.999985  0.000174  0.069337
+         23    1001.678273  0.999929  0.000173  0.070399
+         24    1001.698706  0.999931  0.000173  0.071462
+         25    1001.719139  0.999994  0.000173  0.072524
+         26    1001.739571  1.000000  0.000173  0.073586
+         27    1001.760004  1.000347  0.000173  0.074648
+         28    1001.780437  1.000000  0.000173  0.075710
+         29    1001.800870  1.000105  0.000173  0.076772
+         {\ldots}           {\ldots}       {\ldots}       {\ldots}       {\ldots}
+         4724  1097.732445  1.000357  0.000177  0.063599
+         4725  1097.752878  0.999982  0.000177  0.064661
+         4726  1097.773311  1.000204  0.000177  0.065723
+         4727  1097.793744  1.000056  0.000177  0.066785
+         4728  1097.814177  1.000064  0.000177  0.067847
+         4729  1097.834610  0.999976  0.000177  0.068909
+         4730  1097.855043  1.000000  0.000177  0.069972
+         4731  1097.875476  0.999988  0.000177  0.071034
+         4732  1097.895910  1.000036  0.000177  0.072096
+         4733  1097.916343  0.999954  0.000177  0.073158
+         4734  1097.936776  1.000056  0.000177  0.074220
+         4735  1097.957209  0.999920  0.000177  0.075282
+         4736  1097.977642  0.999957  0.000177  0.076345
+         4737  1097.998075  0.999666  0.000177  0.077407
+         4738  1098.018508  0.999408  0.000177  0.078469
+         4739  1098.038941  0.999618  0.000177  0.079531
+         4740  1098.059374  0.999883  0.000177  0.080593
+         4741  1098.079807  0.999812  0.000177  0.081656
+         4742  1098.100240  1.000097  0.000177  0.082718
+         4743  1098.120673  1.000000  0.000177  0.083780
+         4744  1098.141107  1.000398  0.000177  0.084842
+         4745  1098.161540  0.999827  0.000177  0.085904
+         4746  1098.181973  1.000802  0.000177  0.086966
+         4747  1098.202406  1.000268  0.000177  0.088029
+         4748  1098.222839  1.000445  0.000177  0.089091
+         4749  1098.243272  1.000107  0.000177  0.090153
+         4750  1098.263705  1.000000  0.000177  0.091215
+         4751  1098.284138  0.999888  0.000177  0.092277
+         4752  1098.304571  0.999980  0.000177  0.093339
+         4753  1098.325004  1.000132  0.000177  0.094402
+         
+         [4754 rows x 4 columns]
+\end{Verbatim}
+            
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{fold\PYZus{}lightcurve}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{normalised\PYZus{}dataset.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{19.237}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.992}\PY{p}{,}\PY{l+m+mf}{1.002}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} (0, 3)
+\end{Verbatim}
+            
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{fold\PYZus{}lightcurve}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{normalised\PYZus{}dataset.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{19.237}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.992}\PY{p}{,}\PY{l+m+mf}{1.002}\PY{p}{)}
+         \PY{n}{pylab}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mf}{0.53}\PY{p}{,}\PY{l+m+mf}{0.61}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} (0.53, 0.61)
+\end{Verbatim}
+            
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In order to determine the depth of the transit caused by each exoplanet,
+a parametric model needs to be fit to the lightcurve. Below one can see
+how a basic function was fit to the folded normalised data. The program
+uses the `curve\_fit' function with a function of, n, parameters defined
+by the user. The function also sets limits on the where to begin the fit
+on the data. One limitation of the function is that it doesn't account
+for limb darkening and therefore the parametric function won't fit to
+the bottom of the transit. However, for the case of this paper, a
+rudimentary calculation of the depth will suffice. Using the transit
+depth one can determine the planets radius.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}Modelling the lightcurve of Planet 1}
+         \PY{n}{transits} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{folded\PYZus{}lc\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{error\PYZus{}bad\PYZus{}lines}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)} \PY{c+c1}{\PYZsh{}reads the normalised dataset}
+         \PY{n}{nanmask} \PY{o}{=} \PY{o}{\PYZti{}}\PY{n}{np}\PY{o}{.}\PY{n}{isnan}\PY{p}{(}\PY{n}{Y}\PY{p}{)}                                               \PY{c+c1}{\PYZsh{}flux nan mask}
+         \PY{n}{Y} \PY{o}{=} \PY{n}{transits}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}                                          \PY{c+c1}{\PYZsh{}New variable definitions for the plotting function}
+         \PY{n}{X} \PY{o}{=} \PY{n}{transits}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Phase}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{yerror} \PY{o}{=} \PY{n}{transits}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}                   
+         
+         \PY{c+c1}{\PYZsh{}Defining the functions operating coniditions(baseline, lower limit, upper limit)}
+         
+         \PY{k}{def} \PY{n+nf}{func}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{b}\PY{p}{,} \PY{n}{fmax}\PY{p}{,} \PY{n}{fmin}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{y}\PY{o}{=} \PY{p}{[}\PY{p}{]} 
+             \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{X}\PY{p}{:} 
+                 \PY{k}{if} \PY{n}{x}\PY{o}{\PYZlt{}}\PY{n}{a}\PY{p}{:}
+                     \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{fmax}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{x}\PY{o}{\PYZgt{}}\PY{n}{a} \PY{o+ow}{and} \PY{n}{x}\PY{o}{\PYZlt{}}\PY{n}{b}\PY{p}{:}
+                     \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{fmin}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{x}\PY{o}{\PYZgt{}}\PY{n}{b}\PY{p}{:}
+                     \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{fmax}\PY{p}{)}
+             \PY{k}{return} \PY{n}{y}
+         
+         \PY{c+c1}{\PYZsh{}Findind the transit depth function}
+         
+         \PY{n}{popt1}\PY{p}{,} \PY{n}{pcov1} \PY{o}{=} \PY{n}{curve\PYZus{}fit}\PY{p}{(}\PY{n}{func}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{nanmask}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{[}\PY{n}{nanmask}\PY{p}{]}\PY{p}{,} \PY{n}{p0} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.543}\PY{p}{,} \PY{l+m+mf}{0.552}\PY{p}{,} \PY{l+m+mf}{1.00}\PY{p}{,} \PY{l+m+mf}{0.992}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} using curve\PYZus{}fit function}
+         \PY{n}{delta\PYZus{}flux\PYZus{}1}\PY{o}{=} \PY{n}{popt1}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{popt1}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}                                                            \PY{c+c1}{\PYZsh{} calculating the change in flux}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NameError                                 Traceback (most recent call last)
+
+        <ipython-input-32-cb48c07b8193> in <module>()
+          1 \#Modelling the lightcurve of Planet 1
+          2 transits = pd.read\_csv('folded\_lc\_data.csv', error\_bad\_lines=False) \#reads the normalised dataset
+    ----> 3 nanmask = \textasciitilde{}np.isnan(Y)                                               \#flux nan mask
+          4 Y = transits['mag'].values                                          \#New variable definitions for the plotting function
+          5 X = transits['Phase'].values
+
+
+        NameError: name 'Y' is not defined
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{pylab}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)}
+        \PY{n}{xdata} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,} \PY{n+nb}{max}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xdata}\PY{p}{,} \PY{n}{func}\PY{p}{(}\PY{n}{xdata}\PY{p}{,} \PY{o}{*}\PY{n}{popt1}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fit: a=}\PY{l+s+si}{\PYZpc{}5.3f}\PY{l+s+s1}{, b=}\PY{l+s+si}{\PYZpc{}5.3f}\PY{l+s+s1}{, c=}\PY{l+s+si}{\PYZpc{}5.3f}\PY{l+s+s1}{, d=}\PY{l+s+si}{\PYZpc{}5.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{popt1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.992}\PY{p}{,} \PY{l+m+mf}{1.002}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mf}{0.525}\PY{p}{,}\PY{l+m+mf}{0.575}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Planet 1 transit depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Planet 1 transit depth is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.6f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{delta\PYZus{}flux\PYZus{}1}\PY{p}{)}    \PY{c+c1}{\PYZsh{} printing the value of the change in flux}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}Modelling the lightcurve of Planet 2}
+        
+        \PY{n}{popt}\PY{p}{,} \PY{n}{pcov2} \PY{o}{=} \PY{n}{curve\PYZus{}fit}\PY{p}{(}\PY{n}{func}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{n}{nanmask}\PY{p}{]}\PY{p}{,} \PY{n}{Y}\PY{p}{[}\PY{n}{nanmask}\PY{p}{]}\PY{p}{,} \PY{n}{p0} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.59}\PY{p}{,} \PY{l+m+mf}{0.60}\PY{p}{,} \PY{l+m+mf}{1.00}\PY{p}{,} \PY{l+m+mf}{0.992}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)}
+        \PY{n}{xdata} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,} \PY{n+nb}{max}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{)}
+        
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xdata}\PY{p}{,} \PY{n}{func}\PY{p}{(}\PY{n}{xdata}\PY{p}{,} \PY{o}{*}\PY{n}{popt}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fit: a=}\PY{l+s+si}{\PYZpc{}5.3f}\PY{l+s+s1}{, b=}\PY{l+s+si}{\PYZpc{}5.3f}\PY{l+s+s1}{, c=}\PY{l+s+si}{\PYZpc{}5.3f}\PY{l+s+s1}{, d=}\PY{l+s+si}{\PYZpc{}5.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{popt}\PY{p}{)}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Planet 2 transit dept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mf}{0.992}\PY{p}{,} \PY{l+m+mf}{1.002}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mf}{0.585}\PY{p}{,}\PY{l+m+mf}{0.605}\PY{p}{)}
+\end{Verbatim}
+
+
+    Both of the curve\_fit functions produce a poor fits to the data. The
+function fails for Planet 1 to reach the bottom of the transit because
+of the limb darkening effect. Limb darkening occurs when a planet starts
+or ends the transit. The effect is caused by only part of the planet
+blocking the stars flux. The function fails to find the correct transit
+depth for Planet 2 not because of the limb darkening effect, but rather
+because when the data is folded, due to the time gap between observation
+days the transits appears in different places. This has the effect of
+shifting some of the transits out of place. It can clearly be seen that
+there has been data shifted across to where the transit happens for
+Planet 2 from the figure titled 'Planet 2 transit depth.' Different
+function parameters were tried but positive effect could be made to
+create a better fit for either of the lightcurves.
+
+A better estimate to the transit depth can be estimated by reading off
+the graph where the average depth point is for each transit. For Planet
+1, the transit depth is estimated to be 0.006 +/- 0.001 and for Planet
+2, 0.005 +/- 0.001. The uncertainty for these values can be read off
+from the graph as half the range of reasonable values that the transit
+depth could take. For Planet 1 the range is between 0.993 to 0.995 and
+for Planet 2 0.994 to 0.996.
+
+Knowing an estimate for the transit depths, the radius of the planets
+can now be calculated using equation 2. Uncertainty on the radius was
+calculated from the percentage uncertainty on the read-out measurements
+of the transit depths for each exoplanet. The semi major axis and
+densities of the planets were then derived from the calculated radii.
+The mass of the exoplanets was provided by the assessor, as was the
+stars mass and radius. The uncertainty for the semi major axis and
+densities of the exoplanets were derived from the uncertainty in the
+radii.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}Astronomical constants required for further data analysis}
+        
+        \PY{n}{day} \PY{o}{=} \PY{l+m+mi}{86400}             \PY{c+c1}{\PYZsh{}Number of seconds in one earth day}
+        \PY{n}{G} \PY{o}{=} \PY{l+m+mf}{6.67e\PYZhy{}11}            \PY{c+c1}{\PYZsh{}The Gravitational constant}
+        \PY{n}{Au} \PY{o}{=} \PY{l+m+mf}{1.5e11}             \PY{c+c1}{\PYZsh{}One astronomical unit in metres}
+        
+        \PY{c+c1}{\PYZsh{}Radii}
+        \PY{n}{R\PYZus{}Solar} \PY{o}{=} \PY{l+m+mf}{695e6}         \PY{c+c1}{\PYZsh{}Radius of the sun in metres}
+        \PY{n}{R\PYZus{}Jupiter} \PY{o}{=} \PY{l+m+mf}{699e5}       \PY{c+c1}{\PYZsh{}Radius of Jupiter in metres}
+        
+        \PY{c+c1}{\PYZsh{}Masses}
+        \PY{n}{M\PYZus{}Solar} \PY{o}{=} \PY{l+m+mf}{1.989e30}      \PY{c+c1}{\PYZsh{}Mass of the sun in kg}
+        \PY{n}{M\PYZus{}Jupiter} \PY{o}{=} \PY{l+m+mf}{1.898e27}    \PY{c+c1}{\PYZsh{}Mass of Jupiter mass in kg}
+        \PY{n}{M\PYZus{}Planet\PYZus{}1} \PY{o}{=} \PY{l+m+mf}{0.137} \PY{o}{*} \PY{n}{M\PYZus{}Jupiter}
+        \PY{n}{M\PYZus{}Planet\PYZus{}2} \PY{o}{=} \PY{l+m+mf}{0.227} \PY{o}{*} \PY{n}{M\PYZus{}Jupiter}
+        
+        \PY{c+c1}{\PYZsh{}Periods in seconds}
+        
+        \PY{n}{P\PYZus{}Planet\PYZus{}1} \PY{o}{=} \PY{l+m+mf}{19.237} \PY{o}{*} \PY{n}{day}
+        \PY{n}{P\PYZus{}Planet\PYZus{}2} \PY{o}{=} \PY{l+m+mf}{38.98} \PY{o}{*} \PY{n}{day}
+        
+        \PY{c+c1}{\PYZsh{}Densities}
+        \PY{n}{D\PYZus{}Jupiter} \PY{o}{=} \PY{l+m+mi}{1330}         \PY{c+c1}{\PYZsh{}Density of Jupiter, in units of kg/m\PYZca{}3}
+        
+        \PY{c+c1}{\PYZsh{}Variables given by assessor}
+        \PY{n}{kepler\PYZus{}star\PYZus{}properties} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{1.022}\PY{o}{*}\PY{n}{M\PYZus{}Solar}\PY{p}{,} \PY{l+m+mf}{0.958}\PY{o}{*}\PY{n}{R\PYZus{}Solar}\PY{p}{]} 
+        \PY{c+c1}{\PYZsh{}1st value is the mass in solar masses, 2nd is the stars radius in solar radii}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}Estimating the radius of each exoplanet in the Kepler star system}
+        
+        \PY{n}{delta\PYZus{}flux\PYZus{}planet\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.994} \PY{c+c1}{\PYZsh{}read off estimate of the change in flux for planet 1}
+        \PY{n}{delta\PYZus{}flux\PYZus{}planet\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.995} \PY{c+c1}{\PYZsh{}read off estimate of the change in flux for planet 1}
+        
+        \PY{c+c1}{\PYZsh{}Planet 1}
+        \PY{n}{radius\PYZus{}planet\PYZus{}1} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{delta\PYZus{}flux\PYZus{}planet\PYZus{}1}\PY{o}{*}\PY{p}{(}\PY{n}{kepler\PYZus{}star\PYZus{}properties}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{R\PYZus{}Jupiter}  
+        \PY{n}{radius\PYZus{}1\PYZus{}error}  \PY{o}{=} \PY{l+m+mf}{0.001}\PY{o}{/}\PY{l+m+mf}{0.006} \PY{o}{*} \PY{n}{radius\PYZus{}planet\PYZus{}1}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The radius of Planet 1 is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s2}{ Jupiter radii}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{radius\PYZus{}planet\PYZus{}1}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The uncertainty in the radius of Planet 1 is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s2}{ Jupiter radii}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{radius\PYZus{}1\PYZus{}error}\PY{p}{)}
+         
+        \PY{c+c1}{\PYZsh{}Planet 2}
+        \PY{n}{radius\PYZus{}planet\PYZus{}2} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{delta\PYZus{}flux\PYZus{}planet\PYZus{}2}\PY{o}{*}\PY{p}{(}\PY{n}{kepler\PYZus{}star\PYZus{}properties}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{R\PYZus{}Jupiter}  
+        \PY{n}{radius\PYZus{}2\PYZus{}error}  \PY{o}{=} \PY{l+m+mf}{0.001}\PY{o}{/}\PY{l+m+mf}{0.005} \PY{o}{*} \PY{n}{radius\PYZus{}planet\PYZus{}2}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The radius of Planet 2 is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s2}{ Jupiter radii}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{radius\PYZus{}planet\PYZus{}2}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The uncertainty in the radius of Planet 2 is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s2}{ Jupiter radii}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{radius\PYZus{}2\PYZus{}error}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}Estimating the semi\PYZhy{}major axis for both planets using equation (3)}
+        \PY{c+c1}{\PYZsh{}Planet 1}
+        \PY{n}{semi\PYZus{}mjr\PYZus{}p1} \PY{o}{=}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n}{P\PYZus{}Planet\PYZus{}1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{G}\PY{o}{*}\PY{p}{(}\PY{n}{kepler\PYZus{}star\PYZus{}properties}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{M\PYZus{}Planet\PYZus{}1}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{4}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)} \PY{o}{/}\PY{n}{Au} 
+        \PY{n}{semi\PYZus{}mjr\PYZus{}error1} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{0.001}\PY{o}{/}\PY{l+m+mf}{0.006}\PY{p}{)} \PY{o}{*} \PY{n}{semi\PYZus{}mjr\PYZus{}p1}
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The semi\PYZhy{}major axis of Planet 1, in Astronomical Units, is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s2}{ AU}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{semi\PYZus{}mjr\PYZus{}p1}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The uncertainty in the semi major axis of Planet 1 is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s2}{ Jupiter radii}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{semi\PYZus{}mjr\PYZus{}error1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Planet 2}
+        \PY{n}{semi\PYZus{}mjr\PYZus{}p2} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n}{P\PYZus{}Planet\PYZus{}2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{G}\PY{o}{*}\PY{p}{(}\PY{n}{kepler\PYZus{}star\PYZus{}properties}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{M\PYZus{}Planet\PYZus{}2}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{4}\PY{o}{*}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{Au} 
+        \PY{n}{semi\PYZus{}mjr\PYZus{}error2} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{0.001}\PY{o}{/}\PY{l+m+mf}{0.005}\PY{p}{)} \PY{o}{*} \PY{n}{semi\PYZus{}mjr\PYZus{}p2}
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The semi\PYZhy{}major axis of Planet 2, in Astronomical Units, is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s2}{ AU}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{semi\PYZus{}mjr\PYZus{}p2}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The uncertainty in the semi major axis of Planet 2 is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s2}{ Jupiter radii}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{semi\PYZus{}mjr\PYZus{}error2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}Calculating the planets densities}
+        \PY{c+c1}{\PYZsh{}Density  = planet mass / 4/3*pi*planet radius\PYZca{}3}
+        \PY{c+c1}{\PYZsh{}Planet 1}
+        \PY{n}{Density\PYZus{}Planet\PYZus{}1} \PY{o}{=} \PY{n}{M\PYZus{}Planet\PYZus{}1} \PY{o}{/} \PY{p}{(}\PY{p}{(}\PY{l+m+mi}{4}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{p}{(}\PY{n}{radius\PYZus{}planet\PYZus{}1}\PY{o}{*}\PY{n}{R\PYZus{}Jupiter}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{Density\PYZus{}Planet\PYZus{}1J} \PY{o}{=} \PY{n}{Density\PYZus{}Planet\PYZus{}1} \PY{o}{/} \PY{n}{D\PYZus{}Jupiter}
+        \PY{n}{Density\PYZus{}error\PYZus{}1} \PY{o}{=} \PY{l+m+mi}{3}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{0.001}\PY{o}{/}\PY{l+m+mf}{0.006}\PY{p}{)} \PY{o}{*} \PY{n}{Density\PYZus{}Planet\PYZus{}1}
+        \PY{n}{Density\PYZus{}error\PYZus{}1J} \PY{o}{=} \PY{l+m+mi}{3}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{0.001}\PY{o}{/}\PY{l+m+mf}{0.006}\PY{p}{)} \PY{o}{*} \PY{n}{Density\PYZus{}Planet\PYZus{}1J}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The density of Planet 1 is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3d}\PY{l+s+s2}{ kg/m\PYZca{}3}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{Density\PYZus{}Planet\PYZus{}1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ OR }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s2}{ Jupiter densities}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{Density\PYZus{}Planet\PYZus{}1J}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The density uncertainty for Planet 1 is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3d}\PY{l+s+s2}{ kg/m\PYZca{}3}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{Density\PYZus{}error\PYZus{}1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ OR }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s2}{ Jupiter densities}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{Density\PYZus{}error\PYZus{}1J}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Planet 2}
+        \PY{n}{Density\PYZus{}Planet\PYZus{}2} \PY{o}{=} \PY{n}{M\PYZus{}Planet\PYZus{}2} \PY{o}{/} \PY{p}{(}\PY{p}{(}\PY{l+m+mi}{4}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{o}{*}\PY{p}{(}\PY{n}{radius\PYZus{}planet\PYZus{}2}\PY{o}{*}\PY{n}{R\PYZus{}Jupiter}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{Density\PYZus{}Planet\PYZus{}2J} \PY{o}{=} \PY{n}{Density\PYZus{}Planet\PYZus{}2} \PY{o}{/} \PY{n}{D\PYZus{}Jupiter}
+        \PY{n}{Density\PYZus{}error\PYZus{}2} \PY{o}{=} \PY{l+m+mi}{3}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{0.001}\PY{o}{/}\PY{l+m+mf}{0.005}\PY{p}{)} \PY{o}{*} \PY{n}{Density\PYZus{}Planet\PYZus{}2}
+        \PY{n}{Density\PYZus{}error\PYZus{}2J} \PY{o}{=} \PY{l+m+mi}{3}\PY{o}{*}\PY{p}{(}\PY{l+m+mf}{0.001}\PY{o}{/}\PY{l+m+mf}{0.005}\PY{p}{)} \PY{o}{*} \PY{n}{Density\PYZus{}Planet\PYZus{}2J}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The density of Planet 2 is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3d}\PY{l+s+s2}{ kg/m\PYZca{}3}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{Density\PYZus{}Planet\PYZus{}2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ OR }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s2}{ Jupiter densities}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{Density\PYZus{}Planet\PYZus{}2J}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The density uncertainty for Planet 2 is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3d}\PY{l+s+s2}{ kg/m\PYZca{}3}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{Density\PYZus{}error\PYZus{}2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ OR }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s2}{ Jupiter densities}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{Density\PYZus{}error\PYZus{}2J}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{def} \PY{n+nf}{conflevels}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{nbins}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{confints}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{0.99}\PY{p}{,}\PY{l+m+mf}{0.95}\PY{p}{,}\PY{l+m+mf}{0.68}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Make a 2d normed histogram}
+            \PY{k}{if} \PY{p}{(}\PY{n}{nbins}\PY{o}{\PYZgt{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{n}{H}\PY{p}{,}\PY{n}{xedges}\PY{p}{,}\PY{n}{yedges}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{histogram2d}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{n}{nbins}\PY{p}{,}\PY{n}{normed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{H}\PY{p}{,}\PY{n}{xedges}\PY{p}{,}\PY{n}{yedges}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{histogram2d}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{normed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                
+            \PY{n}{norm}\PY{o}{=}\PY{n}{H}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}              \PY{c+c1}{\PYZsh{} Find the norm of the sum}
+           
+            \PY{n}{contour1}\PY{o}{=}\PY{l+m+mf}{0.99}             \PY{c+c1}{\PYZsh{} Set contour levels}
+            \PY{n}{contour2}\PY{o}{=}\PY{l+m+mf}{0.95}
+            \PY{n}{contour3}\PY{o}{=}\PY{l+m+mf}{0.68}
+        
+            \PY{n}{target1} \PY{o}{=} \PY{n}{norm}\PY{o}{*}\PY{n}{contour1}   \PY{c+c1}{\PYZsh{} Set target levels as percentage of norm}
+            \PY{n}{target2} \PY{o}{=} \PY{n}{norm}\PY{o}{*}\PY{n}{contour2}
+            \PY{n}{target3} \PY{o}{=} \PY{n}{norm}\PY{o}{*}\PY{n}{contour3}
+        
+            \PY{c+c1}{\PYZsh{} Take histogram bin membership as proportional to likelihood \PYZhy{} this is true when data comes from a Markovian process}
+            \PY{k}{def} \PY{n+nf}{objective}\PY{p}{(}\PY{n}{limit}\PY{p}{,} \PY{n}{target}\PY{p}{)}\PY{p}{:}
+                \PY{n}{w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{H}\PY{o}{\PYZgt{}}\PY{n}{limit}\PY{p}{)}
+                \PY{n}{count} \PY{o}{=} \PY{n}{H}\PY{p}{[}\PY{n}{w}\PY{p}{]}
+                
+                
+                \PY{k}{return} \PY{n}{count}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{target}
+        
+            \PY{c+c1}{\PYZsh{} Find levels by summing histogram to objective}
+            \PY{n}{level1}\PY{o}{=} \PY{n}{optimize}\PY{o}{.}\PY{n}{bisect}\PY{p}{(}\PY{n}{objective}\PY{p}{,} \PY{n}{H}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{n}{target1}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+            \PY{n}{level2}\PY{o}{=} \PY{n}{optimize}\PY{o}{.}\PY{n}{bisect}\PY{p}{(}\PY{n}{objective}\PY{p}{,} \PY{n}{H}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{n}{target2}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+            \PY{n}{level3}\PY{o}{=} \PY{n}{optimize}\PY{o}{.}\PY{n}{bisect}\PY{p}{(}\PY{n}{objective}\PY{p}{,} \PY{n}{H}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{args}\PY{o}{=}\PY{p}{(}\PY{n}{target3}\PY{p}{,}\PY{p}{)}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} For nice contour shading with seaborn, define top level}
+            \PY{n}{level4}\PY{o}{=}\PY{n}{H}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+            \PY{n}{levels}\PY{o}{=}\PY{p}{[}\PY{n}{level1}\PY{p}{,}\PY{n}{level2}\PY{p}{,}\PY{n}{level3}\PY{p}{]}
+        
+            \PY{k}{return} \PY{n}{levels}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{masses} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.137}\PY{p}{,} \PY{l+m+mf}{0.227}\PY{p}{]}\PY{p}{)}   \PY{c+c1}{\PYZsh{}Array containing Juptier masses of each planet}
+        \PY{n}{periods} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{19.237}\PY{p}{,} \PY{l+m+mf}{38.98}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{}Array containing period in days of each planet}
+        
+        \PY{c+c1}{\PYZsh{}Table is taken from the NASA exoplanet archive ICE Plotting tool of confirmed planets}
+        \PY{c+c1}{\PYZsh{}https://exoplanetarchive.ipac.caltech.edu/cgi\PYZhy{}bin/IcePlotter/nph\PYZhy{}icePlotInit?mode=demo\PYZam{}set=confirmed}
+        \PY{c+c1}{\PYZsh{}accessed 19/12/2019}
+        
+        \PY{n}{table1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data/plot.tbl.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+        
+        \PY{n}{levels} \PY{o}{=} \PY{n}{conflevels}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{table1}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{table1}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Orbital period (days)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mass (Jupiter mass)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+        
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{table1}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{table1}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.4}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} alpha determines transparency}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{table1}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{table1}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{n\PYZus{}levels}\PY{o}{=}\PY{n}{levels}\PY{p}{)}
+        
+        \PY{n}{pylab}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{periods}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{masses}\PY{p}{)}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.7}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{4. Discussion}\label{discussion}
+
+    The paper had the goal of finding planets in an extrasolar system and to
+determine whether the planets are habitable. Two planets were found in
+the Kepler star system of periods 19.237 (Planet 1) and 38.98 (Planet
+2). The radii, semi-major axes and densities were also found for both
+planets. For Planet 1 they were; 0.738 +/-0.123 Jupiter radii, 0.141 +/-
+0.047 AU and 0.340 +/-0.170 Jupiter's density. For Planet 2 they were;
+0.674 +/- 0.135 Jupiter radii, 0.226 +/- 0.226 Au and 0.741 +/- 0.371
+Jupiter's density. Planet 2 is a smaller and denser than planet one and
+orbits the host star further out than Planet 1.
+
+Both the discovered planets have significantly large fractions of
+Jupiter's radius. The largest known rocky planets have radii of
+approximately two earth radii (0.2 in Jupiter radii). Both exoplanets
+had radii over 3 times this value. Therefore, we can rule out with
+certainty that the planets can't be rocky bodies. The masses and
+densities of the exoplanets are too low to suggest them being a
+migrating Hot Jupiter type of planet. Both planets have densities
+indicative of a low-density gas giants, such a Saturn. Knowing this and
+looking at the contour plot of the mass against the orbital period. We
+can see that both our planets fall just outside the accretion planet
+formation regime (the two points highlighted in black). We can therefore
+conclude that both Planet 1 and Planet 2 are low-density gas giant
+planets formed by accretion. Due to the being made up of primarily gas,
+both exoplanets would not be habitable. Furthermore, the exoplanet's
+orbits are very close to the host star. The host star is a G-type main
+sequence star. Therefore, one would expect that any planet that is not
+in an orbit of approximately 1 Au to be uninhabitable. By this same
+reasoning we can also rule that the planets will not be ice giants as
+they are too close to the host star for ice to remain solid.
+
+IIt is clear to see that this extrasolar system is not akin to our own.
+It is dominated by gaseous planets, in low orbits travelling around the
+host star at high velocities. Our own solar system does not have any
+gaseous planets within 5 Au of the sun whereas in this system both
+planets orbit within 0.25 Au. We can also conclude that in the early
+stages of the extrasolar systems life, there must have been of gas and
+dust orbiting near to the star because lots of gas and dust is required
+for gas giants to form by accretion.
+
+Further measurements of spectroscopy could be carried out on these two
+exoplanets to determine their atmospheric composition. This would allow
+for a greater understanding of composition of the planets mass. This
+could give more insight into how the exoplanets formed.
+
+    \subsubsection{5. Summary}\label{summary}
+
+\(\bullet\) Data reduction techniques were applied to the GROND dataset.
+
+\(\bullet\) The techniques demonstrated were bias-frame subtractions and
+flat fielding.
+
+\(\bullet\) An aperture photometry function was written to determine the
+magnitude of a star in the image.
+
+\(\bullet\) The function accounted for background noise in the image and
+found the uncertainties.
+
+\(\bullet\) The function calculated the magnitude of a star from the
+zero point in the image and a standard star of magnitude +19.5.
+
+\(\bullet\) The absolute magnitude was calculated to be +17.33 +/- 0.62.
+
+\(\bullet\) Data reduction techniques were applied to lightcurves from
+the Kepler Space telescope as part of an investigation into finding
+exoplanets around a host star.
+
+\(\bullet\) The data reduction techniques implemented were an inf/nan
+filter and a median filter to noramlise the lightcurve data.
+
+\(\bullet\) A function was applied to the raw data to give the
+periodicities of the exoplanets. A periodogram was plotted from this
+function. From the periodogram two exoplanets were found.
+
+\(\bullet\) Multiple transit lightcurves were folded to give a stronger
+data trend. A box function was applied to the folded lightcurve to
+calculate the transit depths.
+
+\(\bullet\) From the transit depths the radius of the planets was
+determined, which allowed for the calculation of each exoplanets semi
+major axis and density.
+
+\(\bullet\) Exoplanet 1's properties were; period 19.237 days, radius
+0.738 +/-0.123 Jupiter radii, semi major axis 0.141 AU and density 0.340
++/-0.170 Jupiter densities.
+
+\(\bullet\) Exoplanet 2's properties were; period 38.98 days, radius
+0.674 +/-0.135 Jupiter radii, semi major axis 0.226 Au and density 0.741
++/- 0.371 Jupiter densities.
+
+\(\bullet\) It was concluded that the planets are low density gas giants
+that formed close to the host star
+
+\(\bullet\) Data from the NASA exoplanet archive was used to plot a
+graph of planet mass against period. The two discovered exoplanets were
+highlights
+
+\(\bullet\) The planets were found to lie just outside the accretion
+regime of planet formation. It was concluded that the early extrasolar
+system had lots of dust close to the star from which the gas giants
+formed.
+
+\(\bullet\) It was also concluded that the extrasolar system is not like
+our own. It is dominated by gaseous planets, in low orbits travelling
+around the host star at high velocities. Whereas in our solar system
+there are only rocky bodies below 5 Au.
+
+    \subsubsection{References:}\label{references}
+
+{[}1{]} Ridpath, 2018, Oxford University Press, A Dictionary of
+Astronmoy (3 ed.), Definition of an Exoplanet
+
+{[}2{]} Perryman, 2011, Cambridge University Press, The Exoplanet
+Handbook ,pg 104-105
+
+{[}3{]} Asher-Johnson, 2015, Princeton University Press,How Do You Find
+an Exoplanet?,pg 67-69
+
+{[}4{]} Warner, 2016, Springer Publishing, A Practical Guide to
+Lightcurve Photometry and Analysis, pg 58
+
+This research has made use of the NASA Exoplanet Archive, which is
+operated by the California Institute of Technology, under contract with
+the National Aeronautics and Space Administration under the Exoplanet
+Exploration Program.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
